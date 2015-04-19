@@ -1,0 +1,43 @@
+
+
+mkdir /home/motion/youtube
+cd /home/motion/youtube
+
+https://github.com/tokland/youtube-upload
+
+
+$ wget https://github.com/tokland/youtube-upload/archive/master.zip
+$ unzip master.zip
+$ cd youtube-upload-master
+$ sudo python setup.py install
+
+
+https://developers.google.com/youtube/registering_an_application
+	Create project
+	Create CLIENT id
+	Download json file.
+	copy "ClientID, Client secret to client
+notasecret
+
+
+
+***  Procedure from https://github.com/iwonbigbro/gsync/issues/14
+
+sudo apt-get install python-setuptools
+sudo easy_install --verbose gsync
+
+#This command should initiate a file upload.
+      youtube-upload --title="$fname" --description="footage for www.BirdhillBirdhouse.com"  --category="Pets & Animals"  --tags="wildlife, nest, birdhouse" --location="=" --client-secrets="/home/motion/youtube/youtube-upload-master/client_secrets.json" $f
+
+
+
+mkdir /home/motion/capture2
+mv /home/motion/Upload2Youtube.sh /home/motion/youtube
+mv /home/motion/YoutubeWatchdog.sh /home/motion/youtube
+
+
+See videos uploaded here
+https://www.youtube.com/channel/UChttwrVom99muHmPYatfdRA/videos?sort=dd&view=0&flow=list&live_view=500
+
+
+

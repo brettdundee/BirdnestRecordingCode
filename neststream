@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+### BEGIN INIT INFO
+# Provides:   neststream
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start streaming video at boot time
+# Description:       Start streaming nest video to ustream server 
+### END INIT INFO
+#
+# Note: Not tested on Ubuntu since some LSB & logfile changes made
+TODAY=`date +"%Y%m%d"`
+LOGFILE="/home/motion/nest/log/neststream$TODAY.log"
+# Start the service stream2ustream
+start() {
+	#touch /var/log/neststream.log
+	#chown motion:motion /var/log/neststream.log
+	#touch /var/log/dropbox.log
+	#chown motion:motion /var/log/dropbox.log
+
+        echo "Starting stream2ustream server: " >> $LOGFILE
+        /home/motion/nest/stream2ustream.sh &
+        ### Create the lock file ###
+        touch /var/lock/stream2ustream.sh
+        echo
+}
+# Restart the service stream2ustream.sh
+stop() {
+        echo "Stopping stream2ustream.sh server: " >> $LOGFILE
+        killall avconv
+        ### Now, delete the lock file ###
+        rm -f /var/lock/stream2ustream.sh
+        echo
+}
+### main logic ###
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status stream2ustream.sh
+        ;;
+  restart|reload|condrestart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+exit 0
